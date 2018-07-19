@@ -1,9 +1,10 @@
-var express = require('express');
-var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var config = require('./config');
-var app = express();
-var googleProfile = {};
+const express = require('express');
+    passport = require('passport');
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    config = require('./config');
+    app = express();
+    
+let googleProfile = {};
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -42,14 +43,13 @@ app.get('/logged', function(req, res){
 //Passport routes
 app.get('/auth/google',
 passport.authenticate('google', {
-scope : ['profile', 'email']
+    scope : ['profile', 'email']
 }));
 app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        successRedirect : '/logged',
-        failureRedirect: '/'
-    }));
-
+passport.authenticate('google', {
+    successRedirect : '/logged',
+    failureRedirect: '/'
+}));
 app.listen(3000);
 
 app.use(function (req, res, next) {
